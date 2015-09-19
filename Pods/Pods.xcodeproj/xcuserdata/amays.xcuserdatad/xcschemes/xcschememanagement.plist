@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>LEColorPicker.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Rotten Tomatoes.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>297758B2BF674BBC8FEF208E52D55215</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>34860931092A0B150CC225264F1D43EE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3A6E806BBC61399BD6DD5F4700DB276E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4DA482F8C634B9CD2C1C5EC2ACB00373</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6818C25C93E6FE3FCAFE891D666170D6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B8FAD43B1D9365C081E461520DB8ED7E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D78EA3D03A55D722C29AF5E0D11125AF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
