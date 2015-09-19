@@ -25,6 +25,7 @@ class MovieDetailsViewController: UIViewController {
     var movie: RTMovie?
     var colorPicker = LEColorPicker()
     var partialSCViewDisplayed = false
+    var placeHolderImage: UIImage?
 
     var backgroundColorForMovieDetails: UIColor? {
         get {
@@ -69,11 +70,10 @@ class MovieDetailsViewController: UIViewController {
 
     func loadImageAndUpdateView() {
         let urlRequest = NSURLRequest(URL: (movie?.posterLink!)!)
-        movieImage.setImageWithURLRequest(urlRequest, placeholderImage: nil, success: { (request, response, posterImage) -> Void in
-
-            self.updateUIWithImage(posterImage)
-            self.imageLoadingActivityIndicator.stopAnimating()
-
+        print(placeHolderImage)
+        movieImage.fadeInImageWithUrlRequest(urlRequest, forInterval: 2.0, placeholderImage: placeHolderImage, success: { (request, response, posterImage) -> Void in
+                self.updateUIWithImage(posterImage)
+                self.imageLoadingActivityIndicator.stopAnimating()
             }) { (request, response, error) -> Void in
                 // @todo: Handle error case
         }
@@ -82,7 +82,7 @@ class MovieDetailsViewController: UIViewController {
     func updateUIWithImage(image: UIImage) {
 
         // Set image view elements
-        movieImage.image = image
+        // movieImage.image = image
 
         // Set scroll view elements
         movieTitleLabel.text = movie?.title

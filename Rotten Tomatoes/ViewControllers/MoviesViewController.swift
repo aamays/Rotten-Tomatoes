@@ -51,7 +51,9 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         mCell.movieSummaryLabel.text = movie?.summary
         if let tnLink = movie?.thumbnailLink {
             mCell.movieThumbnailImageView.contentMode = .ScaleAspectFit
-            mCell.movieThumbnailImageView.setImageWithURL(tnLink)
+            let urlRequest = NSURLRequest(URL: tnLink)
+            mCell.movieThumbnailImageView.fadeInImageWithUrlRequest(urlRequest, forInterval: 1.0, placeholderImage: nil, success: nil, failure: nil)
+
         }
 
         return mCell
@@ -89,14 +91,6 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         movieRefreshControl!.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         moviesTableView.addSubview(movieRefreshControl!)
 
-        // setup header
-        // reserved for search bar
-        /*
-        let movieTableViewHeader = UIView(frame: CGRect(x: 0, y: 0, width: moviesTableView.frame.width, height: 50))
-        movieTableViewHeader.backgroundColor = UIColor.darkGrayColor()
-        movieTableViewHeader.alpha = 0.7
-        moviesTableView.tableHeaderView  = movieTableViewHeader
-        */
 
     }
 
@@ -180,7 +174,8 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 let indexPath = moviesTableView.indexPathForCell(sender as! UITableViewCell)
                 movieDetailVC.movie = movies?[(indexPath?.row)!]
                 searchBarTextField.resignFirstResponder()
-
+                let cell = sender as! MovieTableViewCell
+                movieDetailVC.placeHolderImage = cell.movieThumbnailImageView.image
             }
         default: ()
         }
