@@ -15,12 +15,22 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var movieDetailsScrollView: UIScrollView!
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
-    @IBOutlet weak var yearLabel: UILabel!
+    @IBOutlet weak var runtimeLabel: UILabel!
     @IBOutlet weak var movieSummaryLabel: UILabel!
     @IBOutlet weak var imageLoadingActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var movieSummarScrollView: UIScrollView!
     @IBOutlet weak var critiqueratingImageView: UIImageView!
     @IBOutlet weak var viewersRatingImageView: UIImageView!
+    @IBOutlet weak var hudView: UIView!
+
+    struct ViewConfigParameters {
+        static let HUDViewCornerRadius = CGFloat(10)
+        static let ScrollViewAplha = CGFloat(0.85)
+        static let ScrollViewSlideDistance = CGFloat(290)
+        static let ScollViewPadding = CGFloat(10)
+        static let MoviePosterFadeInIntercal = 2.0
+        static let DefaultNavigationTitleText = "Details"
+    }
 
     var movie: RTMovie?
     var colorPicker = LEColorPicker()
@@ -33,7 +43,8 @@ class MovieDetailsViewController: UIViewController {
         }
         set(newValue) {
             movieDetailsScrollView?.backgroundColor = newValue
-            movieDetailsScrollView?.alpha = 0.85
+            movieDetailsScrollView?.alpha = ViewConfigParameters.ScrollViewAplha
+            navigationController?.navigationBar.barTintColor = newValue
         }
     }
 
@@ -43,37 +54,35 @@ class MovieDetailsViewController: UIViewController {
         }
         set(newValue) {
             movieTitleLabel?.textColor = newValue
-            yearLabel?.textColor = newValue
+            runtimeLabel?.textColor = newValue
             movieSummaryLabel?.textColor = newValue
+            navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: newValue ?? UIColor.darkGrayColor()]
         }
     }
 
     struct MovieDetailsConstants {
-        static let ScrollViewFrameSlideDistance = CGFloat(290)
+        static let ScrollViewFrameSlideDistance = ViewConfigParameters.ScrollViewSlideDistance
     }
 
     // MARK: - View Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        hudView.layer.cornerRadius = ViewConfigParameters.HUDViewCornerRadius
         // Do any additional setup after loading the view.
         if let _ = movie {
             // updateUI()
-            self.title = movie?.title ?? "Details"
             loadImageAndUpdateView()
         }
     }
 
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-
     func loadImageAndUpdateView() {
         let urlRequest = NSURLRequest(URL: (movie?.posterLink!)!)
-        print(placeHolderImage)
-        movieImage.fadeInImageWithUrlRequest(urlRequest, forInterval: 2.0, placeholderImage: placeHolderImage, success: { (request, response, posterImage) -> Void in
+
+        movieImage.fadeInImageWithUrlRequest(urlRequest, forInterval: ViewConfigParameters.MoviePosterFadeInIntercal, placeholderImage: placeHolderImage, success: { (request, response, posterImage) -> Void in
                 self.updateUIWithImage(posterImage)
                 self.imageLoadingActivityIndicator.stopAnimating()
+                self.hudView.alpha = 0
             }) { (request, response, error) -> Void in
                 // @todo: Handle error case
         }
@@ -82,13 +91,11 @@ class MovieDetailsViewController: UIViewController {
     func updateUIWithImage(image: UIImage) {
 
         // Set image view elements
-        // movieImage.image = image
+        self.title = movie?.title ?? ViewConfigParameters.DefaultNavigationTitleText
 
         // Set scroll view elements
         movieTitleLabel.text = movie?.title
-        if let movieYear = movie?.year {
-            yearLabel.text = "\(movieYear)"
-        }
+        runtimeLabel.text = movie?.getMovieRunningTimeString()
 
         if let audienceRating = movie?.audienceRating {
             viewersRatingImageView.image = UIImage(named: audienceRating)
@@ -98,9 +105,11 @@ class MovieDetailsViewController: UIViewController {
             critiqueratingImageView.image = UIImage(named: critiqueRating)
         }
 
-        movieSummaryLabel.text = movie?.summary
+        let movieCastStr = movie?.getCastActorNameConcatenatedString()
+        let movieSummary = movie?.summary
+        movieSummaryLabel.text = "Cast: \(movieCastStr!)\n\nSynopsis: \(movieSummary!)"
         movieSummaryLabel.sizeToFit()
-        movieSummarScrollView.contentSize = CGSize(width: movieSummaryLabel.bounds.width, height: movieSummaryLabel.bounds.height + 10)
+        movieSummarScrollView.contentSize = CGSize(width: movieSummaryLabel.bounds.width, height: movieSummaryLabel.bounds.height + ViewConfigParameters.ScollViewPadding)
         movieSummarScrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
 
         // select color scheme and apply colors

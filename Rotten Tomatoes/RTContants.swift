@@ -6,6 +6,7 @@
 //  Copyright © 2015 ple. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
 
@@ -19,4 +20,7 @@ struct RTConstants {
     static let ReleaseToRefreshText = "Release to refresh"
     static let RequestFailedMessage = "Request Failed"
     static let NetworkErrorMessage = "Network Error"
+    static let NotAvailableShort = "N/A"
+
+    static let ApplicationBarTintColor = UIColor(red: 255/255, green: 204/255, blue: 102/255, alpha: 1)
 }

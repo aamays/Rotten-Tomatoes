@@ -38,6 +38,12 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         performAsyncRTMovieFetch("")
     }
 
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        RTUitilities.updateTextAndTintColorForNavBar(navigationController, tintColor: nil, textColor: nil)
+    }
+
     // MARK: - Table View delegeate and datasource methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies?.count ?? 0
@@ -48,14 +54,32 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let mCell = moviesTableView.dequeueReusableCellWithIdentifier(RTStoryboard.MovieCellIdentifier, forIndexPath: indexPath) as! MovieTableViewCell
         let movie = movies?[indexPath.row]
         mCell.movieTitleLabel.text = movie?.title
-        mCell.movieSummaryLabel.text = movie?.summary
+
+        mCell.movieTimeLabel.text = movie?.getMovieRunningTimeString()
+
+        if let audienceRating = movie?.audienceRating {
+            mCell.audienceRatingImageView.image = UIImage(named: audienceRating)
+        }
+        mCell.audienceScoreLabel.text = movie?.audienceScorePct
+
+        if let critiqueRating = movie?.critiqueRating {
+            mCell.critiqueRatingImageView.image = UIImage(named: critiqueRating)
+        }
+        mCell.critqueScoreLabel.text = movie?.critiqueScorePct
+
+        if let mpaaRatings = movie?.mpaaRating {
+            mCell.mpaaRatingImageView.contentMode = .ScaleAspectFit
+            mCell.mpaaRatingImageView.image = UIImage(named: mpaaRatings)
+        }
+
+
         if let tnLink = movie?.thumbnailLink {
             mCell.movieThumbnailImageView.contentMode = .ScaleAspectFit
             let urlRequest = NSURLRequest(URL: tnLink)
             mCell.movieThumbnailImageView.fadeInImageWithUrlRequest(urlRequest, forInterval: 1.0, placeholderImage: nil, success: nil, failure: nil)
-
         }
 
+        mCell.movieCastLabel.text = movie?.getCastActorNameConcatenatedString() ?? ""
         return mCell
     }
 

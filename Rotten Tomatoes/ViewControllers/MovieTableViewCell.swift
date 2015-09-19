@@ -11,8 +11,15 @@ import UIKit
 class MovieTableViewCell: UITableViewCell {
 
     @IBOutlet weak var movieTitleLabel: UILabel!
-    @IBOutlet weak var movieSummaryLabel: UILabel!
+    @IBOutlet weak var movieTimeLabel: UILabel!
     @IBOutlet weak var movieThumbnailImageView: UIImageView!
+    @IBOutlet weak var mpaaRatingImageView: UIImageView!
+    @IBOutlet weak var critiqueRatingImageView: UIImageView!
+    @IBOutlet weak var audienceRatingImageView: UIImageView!
+    @IBOutlet weak var critqueScoreLabel: UILabel!
+    @IBOutlet weak var audienceScoreLabel: UILabel!
+    @IBOutlet weak var movieCastLabel: UILabel!
+    
 
 //    override func setSelected(selected: Bool, animated: Bool) {
 //        super.setSelected(selected, animated: animated)

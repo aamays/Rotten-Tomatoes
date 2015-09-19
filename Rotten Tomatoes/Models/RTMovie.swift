@@ -15,6 +15,12 @@ class RTMovie {
     var summary: String
     var year: Int
     var ratings: NSDictionary
+    var mpaaRating: String
+    var cast: [NSDictionary]
+    var movieTimeInMinutes: Int
+    var movieTimeInSeconds: Int {
+        return movieTimeInMinutes * 60
+    }
 
     var thumbnailLink: NSURL?
     var posterLink: NSURL? {
@@ -39,6 +45,22 @@ class RTMovie {
         return ratings[MovieResponseKey.RatingTypeKeys.CritiqueRating] as? String
     }
 
+    var audienceScorePct: String? {
+        if let audienceScore = ratings[MovieResponseKey.RatingTypeKeys.AudienceScore] as? Int {
+            return "\(audienceScore)%"
+        }
+    
+        return RTConstants.NotAvailableShort
+    }
+
+    var critiqueScorePct: String? {
+        if let critiqueScore = ratings[MovieResponseKey.RatingTypeKeys.CritiqueScore] as? Int {
+            return "\(critiqueScore)%"
+        }
+        
+        return RTConstants.NotAvailableShort
+    }
+
     struct MovieResponseKey {
         static let Id = "id"
         static let Title = "title"
@@ -46,6 +68,9 @@ class RTMovie {
         static let PosterLinks = "posters"
         static let Year = "year"
         static let Ratings = "ratings"
+        static let MpaaRatings = "mpaa_rating"
+        static let AbridgedCast = "abridged_cast"
+        static let Runtime = "runtime"
 
         struct PosterTypeKeys {
             static let Detailed = "detailed"
@@ -56,8 +81,15 @@ class RTMovie {
 
         struct RatingTypeKeys {
             static let AudienceRating = "audience_rating"
+            static let AudienceScore = "audience_score"
             static let CritiqueRating = "critics_rating"
+            static let CritiqueScore = "critics_score"
 
+        }
+
+        struct CastKeys {
+            static let Name = "name"
+            
         }
     }
 
@@ -67,10 +99,25 @@ class RTMovie {
         summary = movieInfo[MovieResponseKey.Summary] as! String
         year = movieInfo[MovieResponseKey.Year] as! Int
         ratings = movieInfo[MovieResponseKey.Ratings] as! NSDictionary
+        mpaaRating = movieInfo[MovieResponseKey.MpaaRatings] as! String
+        movieTimeInMinutes = movieInfo[MovieResponseKey.Runtime] as! Int
 
         // assing poster links
         let posterLinks = movieInfo[MovieResponseKey.PosterLinks] as! NSDictionary
         thumbnailLink = NSURL(string: posterLinks[MovieResponseKey.PosterTypeKeys.Thunbnail] as! String)
+
+        // Assing cast
+        cast = movieInfo[MovieResponseKey.AbridgedCast] as! [NSDictionary]
+
+    }
+
+    func getCastActorNameConcatenatedString() -> String {
+        return (cast.map { $0[MovieResponseKey.CastKeys.Name] as! String }).joinWithSeparator(", ")
+    }
+
+    func getMovieRunningTimeString() -> String {
+        let (h, m) =  (movieTimeInSeconds / 3600, (movieTimeInSeconds % 3600) / 60)
+        return "\(h) hr. \(m) min."
     }
 
 }

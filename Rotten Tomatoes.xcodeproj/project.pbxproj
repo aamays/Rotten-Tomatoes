@@ -16,7 +16,8 @@
 		AC59D0F91BAB17C9007D21CD /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC59D0F81BAB17C9007D21CD /* MovieTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		ACA717EF1BACC1FD004EDDAD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA717EE1BACC1FD004EDDAD /* OpenGLES.framework */; };
 		ACC9DD5A1BAA512D00C87BB7 /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC9DD591BAA512D00C87BB7 /* MoviesViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		ACC9DD5C1BAA51D700C87BB7 /* RTConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC9DD5B1BAA51D700C87BB7 /* RTConstants.swift */; settings = {ASSET_TAGS = (); }; };
+		ACC9DD5C1BAA51D700C87BB7 /* RTContants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC9DD5B1BAA51D700C87BB7 /* RTContants.swift */; settings = {ASSET_TAGS = (); }; };
+		ACCC16371BADD58000E8ADF5 /* RTUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC16361BADD58000E8ADF5 /* RTUtilities.swift */; settings = {ASSET_TAGS = (); }; };
 		ACF8A35D1BABD6B40038436E /* RTExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8A35C1BABD6B40038436E /* RTExtensions.swift */; settings = {ASSET_TAGS = (); }; };
 		ACF8A35F1BAC64940038436E /* fontastic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ACF8A35E1BAC64940038436E /* fontastic.ttf */; settings = {ASSET_TAGS = (); }; };
 		ACF8A3611BAC6A2E0038436E /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8A3601BAC6A2E0038436E /* MovieDetailsViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -35,7 +36,8 @@
 		AC59D0F81BAB17C9007D21CD /* MovieTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovieTableViewCell.swift; path = ViewControllers/MovieTableViewCell.swift; sourceTree = "<group>"; };
 		ACA717EE1BACC1FD004EDDAD /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		ACC9DD591BAA512D00C87BB7 /* MoviesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoviesViewController.swift; path = ViewControllers/MoviesViewController.swift; sourceTree = "<group>"; };
-		ACC9DD5B1BAA51D700C87BB7 /* RTConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTConstants.swift; sourceTree = "<group>"; };
+		ACC9DD5B1BAA51D700C87BB7 /* RTContants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTContants.swift; sourceTree = "<group>"; };
+		ACCC16361BADD58000E8ADF5 /* RTUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTUtilities.swift; sourceTree = "<group>"; };
 		ACF8A35C1BABD6B40038436E /* RTExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTExtensions.swift; sourceTree = "<group>"; };
 		ACF8A35E1BAC64940038436E /* fontastic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = fontastic.ttf; sourceTree = "<group>"; };
 		ACF8A3601BAC6A2E0038436E /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovieDetailsViewController.swift; path = ViewControllers/MovieDetailsViewController.swift; sourceTree = "<group>"; };
@@ -126,8 +128,9 @@
 		AC59D0F51BAB1145007D21CD /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				ACC9DD5B1BAA51D700C87BB7 /* RTConstants.swift */,
+				ACC9DD5B1BAA51D700C87BB7 /* RTContants.swift */,
 				ACF8A35C1BABD6B40038436E /* RTExtensions.swift */,
+				ACCC16361BADD58000E8ADF5 /* RTUtilities.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -266,11 +269,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC59D0F91BAB17C9007D21CD /* MovieTableViewCell.swift in Sources */,
-				ACC9DD5C1BAA51D700C87BB7 /* RTConstants.swift in Sources */,
+				ACC9DD5C1BAA51D700C87BB7 /* RTContants.swift in Sources */,
 				AC0F61401BAA02780041CE69 /* AppDelegate.swift in Sources */,
 				ACF8A3611BAC6A2E0038436E /* MovieDetailsViewController.swift in Sources */,
 				ACF8A35D1BABD6B40038436E /* RTExtensions.swift in Sources */,
 				AC59D0F71BAB1197007D21CD /* RTMovie.swift in Sources */,
+				ACCC16371BADD58000E8ADF5 /* RTUtilities.swift in Sources */,
 				ACC9DD5A1BAA512D00C87BB7 /* MoviesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
