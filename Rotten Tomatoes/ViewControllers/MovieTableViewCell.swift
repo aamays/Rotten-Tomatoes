@@ -19,12 +19,5 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet weak var critqueScoreLabel: UILabel!
     @IBOutlet weak var audienceScoreLabel: UILabel!
     @IBOutlet weak var movieCastLabel: UILabel!
-    
-
-//    override func setSelected(selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
 
 }

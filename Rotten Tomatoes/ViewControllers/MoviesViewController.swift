@@ -12,12 +12,18 @@ import LEColorPicker
 
 class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
+    // MARK: - Outlets
     @IBOutlet weak var moviesTableView: UITableView!
     @IBOutlet weak var errorMessageView: UIView!
     @IBOutlet weak var errorMessageLabel: UILabel!
     @IBOutlet weak var searchBarTextField: UITextField!
 
+    // MARK: - Properties
     var movieRefreshControl: UIRefreshControl?
+
+    var movieResultsApiUrl: String!
+    var pageIndex: Int!
+    var pageTitle: String!
 
     var cachedMovies: [RTMovie]?
     var movies: [RTMovie]? {
@@ -36,6 +42,9 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         // load data using asyn call
         performAsyncRTMovieFetch("")
+
+        movieResultsApiUrl = movieResultsApiUrl ?? RTConstants.MoviesApiEndPointUrl
+
     }
 
     
@@ -104,9 +113,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     // MARK: - Helper Methods
-
     func setUpMovieTableView() {
-
         moviesTableView.delegate = self
         moviesTableView.dataSource = self
 
@@ -123,16 +130,12 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         moviesTableView?.reloadData()
     }
 
-
     func performAsyncRTMovieFetch(withRefreshMessage: String?) {
-
-        let urlString = "https://gist.githubusercontent.com/timothy1ee/d1778ca5b944ed974db0/raw/489d812c7ceeec0ac15ab77bf7c47849f2d1eb2b/gistfile1.json"
-
         movieRefreshControl?.attributedTitle = NSAttributedString(string: withRefreshMessage ?? "")
         movieRefreshControl?.beginRefreshing()
 
         let task =  NSURLSession.sharedSession().dataTaskWithRequest( // fetches in background thread
-            NSURLRequest(URL: NSURL(string: urlString)!),
+            NSURLRequest(URL: NSURL(string: movieResultsApiUrl!)!),
             completionHandler: {
                 (rawMovieData, response, error) -> Void in
                 // Sending the results back to main queue to update UI using the fetched data
@@ -187,7 +190,6 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     // MARK: - Navigation
-
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.

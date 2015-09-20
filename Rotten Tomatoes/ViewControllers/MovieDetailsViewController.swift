@@ -12,6 +12,7 @@ import LEColorPicker
 class MovieDetailsViewController: UIViewController {
 
 
+    // MARK: - Outlets
     @IBOutlet weak var movieDetailsScrollView: UIScrollView!
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
@@ -23,12 +24,14 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var viewersRatingImageView: UIImageView!
     @IBOutlet weak var hudView: UIView!
 
+    // MARK: - Properties
     struct ViewConfigParameters {
         static let HUDViewCornerRadius = CGFloat(10)
         static let ScrollViewAplha = CGFloat(0.85)
-        static let ScrollViewSlideDistance = CGFloat(290)
+        static let ScrollViewInitialSlideDistance = CGFloat(300)
+        static let ScrollViewToggleSlideDistance = CGFloat(300)
         static let ScollViewPadding = CGFloat(10)
-        static let MoviePosterFadeInIntercal = 2.0
+        static let MoviePosterFadeInInterval = 2.0
         static let DefaultNavigationTitleText = "Details"
     }
 
@@ -60,10 +63,6 @@ class MovieDetailsViewController: UIViewController {
         }
     }
 
-    struct MovieDetailsConstants {
-        static let ScrollViewFrameSlideDistance = ViewConfigParameters.ScrollViewSlideDistance
-    }
-
     // MARK: - View Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,20 +75,32 @@ class MovieDetailsViewController: UIViewController {
         }
     }
 
-    func loadImageAndUpdateView() {
+    // MARK: - View Actions
+    @IBAction func scrollViewTapped() {
+        slideMovieDetailScore(partialSCViewDisplayed ? ViewConfigParameters.ScrollViewToggleSlideDistance : -ViewConfigParameters.ScrollViewToggleSlideDistance)
+        partialSCViewDisplayed = !partialSCViewDisplayed
+    }
+
+    @IBAction func ImageViewTapped() {
+        if !partialSCViewDisplayed {
+            scrollViewTapped()
+        }
+    }
+
+    // MARK: - Internal methods
+    private func loadImageAndUpdateView() {
         let urlRequest = NSURLRequest(URL: (movie?.posterLink!)!)
 
-        movieImage.fadeInImageWithUrlRequest(urlRequest, forInterval: ViewConfigParameters.MoviePosterFadeInIntercal, placeholderImage: placeHolderImage, success: { (request, response, posterImage) -> Void in
-                self.updateUIWithImage(posterImage)
-                self.imageLoadingActivityIndicator.stopAnimating()
-                self.hudView.alpha = 0
+        movieImage.fadeInImageWithUrlRequest(urlRequest, forInterval: ViewConfigParameters.MoviePosterFadeInInterval, placeholderImage: placeHolderImage, success: { (request, response, posterImage) -> Void in
+            self.updateUIWithImage(posterImage)
+            self.imageLoadingActivityIndicator.stopAnimating()
+            self.hudView.alpha = 0
             }) { (request, response, error) -> Void in
                 // @todo: Handle error case
         }
     }
 
-    func updateUIWithImage(image: UIImage) {
-
+    private func updateUIWithImage(image: UIImage) {
         // Set image view elements
         self.title = movie?.title ?? ViewConfigParameters.DefaultNavigationTitleText
 
@@ -117,23 +128,15 @@ class MovieDetailsViewController: UIViewController {
         backgroundColorForMovieDetails = colorScheme.backgroundColor
         secondaryColorForMovieText = colorScheme.secondaryTextColor
 
-        scrollViewTapped()
+        slideMovieDetailScore(ViewConfigParameters.ScrollViewInitialSlideDistance)
     }
 
-    @IBAction func scrollViewTapped() {
-
+    private func slideMovieDetailScore(distance: CGFloat) {
         UIView.animateWithDuration(1.0, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 7, options: [], animations: {
-            self.movieDetailsScrollView.frame.origin.y += self.partialSCViewDisplayed ? -MovieDetailsConstants.ScrollViewFrameSlideDistance : MovieDetailsConstants.ScrollViewFrameSlideDistance
+            self.movieDetailsScrollView.frame.origin.y += distance
         }, completion: nil)
-
-        partialSCViewDisplayed = !partialSCViewDisplayed
     }
 
-    @IBAction func ImageViewTapped() {
-        if !partialSCViewDisplayed {
-            scrollViewTapped()
-        }
-    }
     /*
     // MARK: - Navigation
 

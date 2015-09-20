@@ -18,6 +18,7 @@
 		ACC9DD5A1BAA512D00C87BB7 /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC9DD591BAA512D00C87BB7 /* MoviesViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		ACC9DD5C1BAA51D700C87BB7 /* RTContants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC9DD5B1BAA51D700C87BB7 /* RTContants.swift */; settings = {ASSET_TAGS = (); }; };
 		ACCC16371BADD58000E8ADF5 /* RTUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC16361BADD58000E8ADF5 /* RTUtilities.swift */; settings = {ASSET_TAGS = (); }; };
+		ACD01CFF1BAE507800A35DF5 /* RTPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD01CFE1BAE507800A35DF5 /* RTPageViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		ACF8A35D1BABD6B40038436E /* RTExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8A35C1BABD6B40038436E /* RTExtensions.swift */; settings = {ASSET_TAGS = (); }; };
 		ACF8A35F1BAC64940038436E /* fontastic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ACF8A35E1BAC64940038436E /* fontastic.ttf */; settings = {ASSET_TAGS = (); }; };
 		ACF8A3611BAC6A2E0038436E /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF8A3601BAC6A2E0038436E /* MovieDetailsViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -38,6 +39,7 @@
 		ACC9DD591BAA512D00C87BB7 /* MoviesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoviesViewController.swift; path = ViewControllers/MoviesViewController.swift; sourceTree = "<group>"; };
 		ACC9DD5B1BAA51D700C87BB7 /* RTContants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTContants.swift; sourceTree = "<group>"; };
 		ACCC16361BADD58000E8ADF5 /* RTUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTUtilities.swift; sourceTree = "<group>"; };
+		ACD01CFE1BAE507800A35DF5 /* RTPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RTPageViewController.swift; path = ViewControllers/RTPageViewController.swift; sourceTree = "<group>"; };
 		ACF8A35C1BABD6B40038436E /* RTExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RTExtensions.swift; sourceTree = "<group>"; };
 		ACF8A35E1BAC64940038436E /* fontastic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = fontastic.ttf; sourceTree = "<group>"; };
 		ACF8A3601BAC6A2E0038436E /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovieDetailsViewController.swift; path = ViewControllers/MovieDetailsViewController.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				ACC9DD591BAA512D00C87BB7 /* MoviesViewController.swift */,
 				AC59D0F81BAB17C9007D21CD /* MovieTableViewCell.swift */,
 				ACF8A3601BAC6A2E0038436E /* MovieDetailsViewController.swift */,
+				ACD01CFE1BAE507800A35DF5 /* RTPageViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				AC59D0F71BAB1197007D21CD /* RTMovie.swift in Sources */,
 				ACCC16371BADD58000E8ADF5 /* RTUtilities.swift in Sources */,
 				ACC9DD5A1BAA512D00C87BB7 /* MoviesViewController.swift in Sources */,
+				ACD01CFF1BAE507800A35DF5 /* RTPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

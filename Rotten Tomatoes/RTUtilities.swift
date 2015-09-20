@@ -16,5 +16,4 @@ class RTUitilities {
         navController?.navigationBar.barTintColor = tintColor ?? RTConstants.ApplicationBarTintColor
         navController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: textColor ?? UIColor.darkGrayColor()]
     }
-
 }

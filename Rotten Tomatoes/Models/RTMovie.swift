@@ -10,6 +10,7 @@ import Foundation
 
 class RTMovie {
 
+    // MARK: - Properties
     var id: Int
     var title: String
     var summary: String
@@ -93,6 +94,7 @@ class RTMovie {
         }
     }
 
+    // MARK: - Initializer
     init(fromRottenTomatoesMovieResponse movieInfo: NSDictionary) {
         id = Int((movieInfo[MovieResponseKey.Id] as! String))!
         title = movieInfo[MovieResponseKey.Title] as! String
@@ -111,6 +113,7 @@ class RTMovie {
 
     }
 
+    // MARK: - Methods
     func getCastActorNameConcatenatedString() -> String {
         return (cast.map { $0[MovieResponseKey.CastKeys.Name] as! String }).joinWithSeparator(", ")
     }
