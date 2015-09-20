@@ -46,3 +46,8 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 #### Limitations & Further improvements to do:
 
 * Support grid view viewing movies
+
+Credits
+---------
+* [Rotten Tomatoes API](http://developer.rottentomatoes.com/docs/read/JSON)
+* [AFNetworking](https://github.com/AFNetworking/AFNetworking)
