@@ -31,7 +31,7 @@ class MovieDetailsViewController: UIViewController {
         static let HUDViewCornerRadius = CGFloat(10)
         static let ScrollViewAplha = CGFloat(0.85)
         static let ScrollViewInitialSlideDistance = CGFloat(370)
-        static let ScrollViewToggleSlideDistance = CGFloat(280)
+        static let ScrollViewToggleSlideDistance = CGFloat(290)
         static let ScollViewPadding = CGFloat(10)
         static let MoviePosterFadeInInterval = 2.0
         static let DefaultNavigationTitleText = "Details"
