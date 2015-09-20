@@ -2,7 +2,7 @@
 
 A client application for Rotten Tomatoes API to display latest movie listings
 
-Time spent: 12 hours
+Time spent: 13 hours
  * Functionality: ~4 hours
  * UI/UX: ~8 hours
  * Testing/Bug Fixes: ~1 hour
