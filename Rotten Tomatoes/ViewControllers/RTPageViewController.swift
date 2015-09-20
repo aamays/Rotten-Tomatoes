@@ -48,7 +48,7 @@ class RTPageViewController: UIViewController, UIPageViewControllerDataSource, UI
 
         return movieViewControllerAtIndex(--index)
     }
-    
+
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         let viewController = viewController as! MoviesViewController
         var index = viewController.pageIndex as Int
@@ -69,12 +69,14 @@ class RTPageViewController: UIViewController, UIPageViewControllerDataSource, UI
     }
 
     // MARK: PageViewController deletgate methods
-    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
-        if let vc = pendingViewControllers.first as? MoviesViewController {
-            title = vc.pageTitle
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if let vc = previousViewControllers.first as? MoviesViewController {
+            if completed {
+                let currentIndex = vc.pageIndex == 0 ? 1 : 0
+                title = rtApiEndpoints[currentIndex].1
+            }
         }
     }
-
     // MARK: - Internal helper functions
     func movieViewControllerAtIndex(index: Int) -> MoviesViewController {
         let movieViewController = storyboard?.instantiateViewControllerWithIdentifier(RTStoryboard.MovieViewControllerIdentifier) as! MoviesViewController

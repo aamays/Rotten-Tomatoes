@@ -17,6 +17,8 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var runtimeLabel: UILabel!
+    @IBOutlet weak var movieYearLabel: UILabel!
+    @IBOutlet weak var movieMpaaRatingImageView: UIImageView!
     @IBOutlet weak var movieSummaryLabel: UILabel!
     @IBOutlet weak var imageLoadingActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var movieSummarScrollView: UIScrollView!
@@ -28,8 +30,8 @@ class MovieDetailsViewController: UIViewController {
     struct ViewConfigParameters {
         static let HUDViewCornerRadius = CGFloat(10)
         static let ScrollViewAplha = CGFloat(0.85)
-        static let ScrollViewInitialSlideDistance = CGFloat(300)
-        static let ScrollViewToggleSlideDistance = CGFloat(300)
+        static let ScrollViewInitialSlideDistance = CGFloat(370)
+        static let ScrollViewToggleSlideDistance = CGFloat(280)
         static let ScollViewPadding = CGFloat(10)
         static let MoviePosterFadeInInterval = 2.0
         static let DefaultNavigationTitleText = "Details"
@@ -59,6 +61,7 @@ class MovieDetailsViewController: UIViewController {
             movieTitleLabel?.textColor = newValue
             runtimeLabel?.textColor = newValue
             movieSummaryLabel?.textColor = newValue
+            movieYearLabel?.textColor = newValue
             navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: newValue ?? UIColor.darkGrayColor()]
         }
     }
@@ -82,7 +85,7 @@ class MovieDetailsViewController: UIViewController {
     }
 
     @IBAction func ImageViewTapped() {
-        if !partialSCViewDisplayed {
+        if partialSCViewDisplayed {
             scrollViewTapped()
         }
     }
@@ -107,6 +110,9 @@ class MovieDetailsViewController: UIViewController {
         // Set scroll view elements
         movieTitleLabel.text = movie?.title
         runtimeLabel.text = movie?.getMovieRunningTimeString()
+        if let yr = movie?.year {
+            movieYearLabel.text = "\(yr)"
+        }
 
         if let audienceRating = movie?.audienceRating {
             viewersRatingImageView.image = UIImage(named: audienceRating)
@@ -116,9 +122,14 @@ class MovieDetailsViewController: UIViewController {
             critiqueratingImageView.image = UIImage(named: critiqueRating)
         }
 
+        if let mpaaRating = movie?.mpaaRating {
+            movieMpaaRatingImageView.contentMode = .ScaleAspectFit
+            movieMpaaRatingImageView.image = UIImage(named: mpaaRating)
+        }
+
         let movieCastStr = movie?.getCastActorNameConcatenatedString()
         let movieSummary = movie?.summary
-        movieSummaryLabel.text = "Cast: \(movieCastStr!)\n\nSynopsis: \(movieSummary!)"
+        setSummaryLabelTextWithCastString(movieCastStr ?? RTConstants.NotAvailableLong, andSynopsis: movieSummary ?? RTConstants.NotAvailableLong)
         movieSummaryLabel.sizeToFit()
         movieSummarScrollView.contentSize = CGSize(width: movieSummaryLabel.bounds.width, height: movieSummaryLabel.bounds.height + ViewConfigParameters.ScollViewPadding)
         movieSummarScrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
@@ -129,6 +140,22 @@ class MovieDetailsViewController: UIViewController {
         secondaryColorForMovieText = colorScheme.secondaryTextColor
 
         slideMovieDetailScore(ViewConfigParameters.ScrollViewInitialSlideDistance)
+    }
+
+    private func setSummaryLabelTextWithCastString(cast: String, andSynopsis synopsis: String) {
+        let attributedString = NSMutableAttributedString()
+        let attrs = [NSFontAttributeName : UIFont.boldSystemFontOfSize(18)]
+
+        // cast
+        let castTitleStr = NSMutableAttributedString(string:"Cast:", attributes:attrs)
+        attributedString.appendAttributedString(castTitleStr)
+        attributedString.appendAttributedString(NSAttributedString(string: " \(cast)\n\n"))
+
+        // synopsis
+        let synopsisTitleStr = NSMutableAttributedString(string:"Synopsis:", attributes:attrs)
+        attributedString.appendAttributedString(synopsisTitleStr)
+        attributedString.appendAttributedString(NSAttributedString(string: " \(synopsis)"))
+        movieSummaryLabel.attributedText = attributedString
     }
 
     private func slideMovieDetailScore(distance: CGFloat) {

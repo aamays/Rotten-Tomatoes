@@ -23,6 +23,7 @@ struct RTConstants {
     static let RequestFailedMessage = "Request Failed"
     static let NetworkErrorMessage = "Network Error"
     static let NotAvailableShort = "N/A"
+    static let NotAvailableLong = "Not Available"
     static let MovieTitleText = "Movie"
     static let TopDvdTitleText = "Top DVD"
     static let MoviesApiEndPointUrl = "https://gist.githubusercontent.com/timothy1ee/d1778ca5b944ed974db0/raw/489d812c7ceeec0ac15ab77bf7c47849f2d1eb2b/gistfile1.json"
