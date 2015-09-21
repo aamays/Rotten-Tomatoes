@@ -20,4 +20,37 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet weak var audienceScoreLabel: UILabel!
     @IBOutlet weak var movieCastLabel: UILabel!
 
+    var movie: RTMovie! {
+        didSet {
+            updateCellWithMovie(movie)
+        }
+    }
+
+    private func updateCellWithMovie(movie: RTMovie) {
+        movieTitleLabel.text = movie.title
+
+        movieTimeLabel.text = movie.getMovieRunningTimeString()
+
+        if let audienceRating = movie.audienceRating {
+            audienceRatingImageView.image = UIImage(named: audienceRating)
+        }
+        audienceScoreLabel.text = movie.audienceScorePct
+
+        if let critiqueRating = movie.critiqueRating {
+            critiqueRatingImageView.image = UIImage(named: critiqueRating)
+        }
+        critqueScoreLabel.text = movie.critiqueScorePct
+
+        mpaaRatingImageView.contentMode = .ScaleAspectFit
+        mpaaRatingImageView.image = UIImage(named: movie.mpaaRating)
+
+        if let tnLink = movie.thumbnailLink {
+            movieThumbnailImageView.contentMode = .ScaleAspectFit
+            let urlRequest = NSURLRequest(URL: tnLink)
+            movieThumbnailImageView.fadeInImageWithUrlRequest(urlRequest, forInterval: 1.0, placeholderImage: nil, success: nil, failure: nil)
+        }
+
+        movieCastLabel.text = movie.getCastActorNameConcatenatedString() ?? ""
+
+    }
 }

@@ -32,6 +32,13 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
 
+    struct ViewConfigParameters {
+        static let AlterViewAlpha = CGFloat(0.8)
+        static let PopupAlertTitle = "We've hit a snag"
+        static let PopupAlertOkButtonText = "Ok"
+        static let PopupAlertDefaultMessage = "Could not retreive movie data."
+    }
+
     // MARK: - View Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,33 +69,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         let mCell = moviesTableView.dequeueReusableCellWithIdentifier(RTStoryboard.MovieCellIdentifier, forIndexPath: indexPath) as! MovieTableViewCell
         let movie = movies?[indexPath.row]
-        mCell.movieTitleLabel.text = movie?.title
-
-        mCell.movieTimeLabel.text = movie?.getMovieRunningTimeString()
-
-        if let audienceRating = movie?.audienceRating {
-            mCell.audienceRatingImageView.image = UIImage(named: audienceRating)
-        }
-        mCell.audienceScoreLabel.text = movie?.audienceScorePct
-
-        if let critiqueRating = movie?.critiqueRating {
-            mCell.critiqueRatingImageView.image = UIImage(named: critiqueRating)
-        }
-        mCell.critqueScoreLabel.text = movie?.critiqueScorePct
-
-        if let mpaaRatings = movie?.mpaaRating {
-            mCell.mpaaRatingImageView.contentMode = .ScaleAspectFit
-            mCell.mpaaRatingImageView.image = UIImage(named: mpaaRatings)
-        }
-
-
-        if let tnLink = movie?.thumbnailLink {
-            mCell.movieThumbnailImageView.contentMode = .ScaleAspectFit
-            let urlRequest = NSURLRequest(URL: tnLink)
-            mCell.movieThumbnailImageView.fadeInImageWithUrlRequest(urlRequest, forInterval: 1.0, placeholderImage: nil, success: nil, failure: nil)
-        }
-
-        mCell.movieCastLabel.text = movie?.getCastActorNameConcatenatedString() ?? ""
+        mCell.movie = movie
         return mCell
     }
 
@@ -150,7 +131,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                                 }
                             }
                         } catch {
-                            print("Could not unwrap JSON!")
+                            print("Could not unwrap JSON...")
                         }
                     } else if let error = error {
                         self.updateUIForError(error)
@@ -163,20 +144,22 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     private func updateUIForError(error: NSError) {
         // @todo: Clean up following code to make it more concise (by probably using enums, we'll see)
-        var alertMessage = "Could not retreive movie data."
-        errorMessageLabel?.text = RTConstants.RequestFailedMessage
+        var alertMessage = ViewConfigParameters.PopupAlertDefaultMessage
+        var errorMessage = RTConstants.RequestFailedMessage
         if (error.code == NSURLErrorNotConnectedToInternet) {
             alertMessage = error.localizedDescription
-            errorMessageLabel?.text = RTConstants.NetworkErrorMessage
+            errorMessage = RTConstants.NetworkErrorMessage
         }
 
-        errorMessageView.alpha = 0.8
+        errorMessageLabel?.attributedText = RTUitilities.getAttributedStringForAlertMessage(errorMessage)
+
+        errorMessageView.alpha = ViewConfigParameters.AlterViewAlpha
         displayInformationalAlertView(alertMessage)
     }
 
     private func displayInformationalAlertView(withMessage: String) {
-        let alert = UIAlertController(title: "We've hit a snag", message: withMessage, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+        let alert = UIAlertController(title: ViewConfigParameters.PopupAlertTitle, message: withMessage, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: ViewConfigParameters.PopupAlertOkButtonText, style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
     }
 
