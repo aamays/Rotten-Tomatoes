@@ -51,6 +51,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         performAsyncRTMovieFetch("")
 
         movieResultsApiUrl = movieResultsApiUrl ?? RTConstants.MoviesApiEndPointUrl
+        searchBarTextField.placeholder = "Search \(pageTitle)"
 
     }
 

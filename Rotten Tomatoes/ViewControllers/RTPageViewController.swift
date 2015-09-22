@@ -14,6 +14,10 @@ class RTPageViewController: UIViewController, UIPageViewControllerDataSource, UI
     let rtApiEndpoints = [(RTConstants.MoviesApiEndPointUrl, RTConstants.MovieTitleText), (RTConstants.TopDvdApiEndPointUrl, RTConstants.TopDvdTitleText)]
     var pageViewController:UIPageViewController!
 
+
+    @IBOutlet weak var pageTitle: UILabel!
+    @IBOutlet weak var moviePageControl: UIPageControl!
+
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +26,7 @@ class RTPageViewController: UIViewController, UIPageViewControllerDataSource, UI
         pageViewController = storyboard?.instantiateViewControllerWithIdentifier(RTStoryboard.PageViewControllerIdentifier) as! UIPageViewController
         pageViewController.dataSource = self
         pageViewController.delegate = self
+
 
         let initialViewController = movieViewControllerAtIndex(0)
 
@@ -73,7 +78,8 @@ class RTPageViewController: UIViewController, UIPageViewControllerDataSource, UI
         if let vc = previousViewControllers.first as? MoviesViewController {
             if completed {
                 let currentIndex = vc.pageIndex == 0 ? 1 : 0
-                title = rtApiEndpoints[currentIndex].1
+                pageTitle.text = rtApiEndpoints[currentIndex].1
+                moviePageControl.currentPage = currentIndex
             }
         }
     }
