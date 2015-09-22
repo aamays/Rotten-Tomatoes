@@ -82,6 +82,7 @@
 		AC0F61331BAA02780041CE69 = {
 			isa = PBXGroup;
 			children = (
+				AC92B8461BB1211C00FAB9B3 /* RottenTomatoesDemo.gif */,
 				AC0F613E1BAA02780041CE69 /* Rotten Tomatoes */,
 				AC0F613D1BAA02780041CE69 /* Products */,
 				1D312BC491214E7A6A207518 /* Pods */,
@@ -100,7 +101,6 @@
 		AC0F613E1BAA02780041CE69 /* Rotten Tomatoes */ = {
 			isa = PBXGroup;
 			children = (
-				AC92B8461BB1211C00FAB9B3 /* RottenTomatoesDemo.gif */,
 				AC0F613F1BAA02780041CE69 /* AppDelegate.swift */,
 				AC0F61431BAA02780041CE69 /* Main.storyboard */,
 				ACC9DD581BAA50E900C87BB7 /* View Controllers */,
